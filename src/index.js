@@ -1,17 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+let n = 0;
+const App = () =>
+  React.createElement("div", null, [
+    n,
+    React.createElement(
+      "button",
+      {
+        onClick: () => {
+          n += 1;
+          console.log(n); //这一句是精髓
+          ReactDOM.render(App(), document.querySelector("#app")); // 为什么还是不能重新渲染
+        }
+      },
+      "+1"
+    )
+  ]);
+
+ReactDOM.render(App(), document.querySelector("#app"));
